@@ -1,32 +1,35 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
   Command,
   Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react"
+  Building,
+  Briefcase,
+  FileText,
+  Sun,
+  Moon,
+} from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from "@/components/nav-main";
+import { NavProjects } from "@/components/nav-projects";
+import { NavUser } from "@/components/nav-user";
+import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
 
-// This is sample data.
+// Sample data
 const data = {
   user: {
     name: "shadcn",
@@ -35,9 +38,9 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
+      name: "Condofácil",
       logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      plan: "Gestão de Condomínios",
     },
     {
       name: "Acme Corp.",
@@ -52,36 +55,40 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Gestão e Cadastros",
       url: "#",
-      icon: SquareTerminal,
+      icon: Building, // Ícone correspondente
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "Condomínios",
           url: "#",
         },
         {
-          title: "Starred",
+          title: "Moradores",
           url: "#",
         },
         {
-          title: "Settings",
+          title: "Funcionários",
+          url: "#",
+        },
+        {
+          title: "Fornecedores",
           url: "#",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Financeiro",
       url: "#",
-      icon: Bot,
+      icon: Briefcase, // Ícone correspondente
       items: [
         {
-          title: "Genesis",
+          title: "Transações",
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "Facturamento",
           url: "#",
         },
         {
@@ -91,47 +98,47 @@ const data = {
       ],
     },
     {
-      title: "Documentation",
+      title: "Contabilidade",
       url: "#",
-      icon: BookOpen,
+      icon: FileText, // Ícone correspondente
       items: [
         {
-          title: "Introduction",
+          title: "Plano de Contas",
           url: "#",
         },
         {
-          title: "Get Started",
+          title: "Movimentações",
           url: "#",
         },
         {
-          title: "Tutorials",
+          title: "Balancetes",
           url: "#",
         },
         {
-          title: "Changelog",
+          title: "D. Resultados",
           url: "#",
         },
       ],
     },
     {
-      title: "Settings",
+      title: "Relatórios",
       url: "#",
-      icon: Settings2,
+      icon: PieChart, // Ícone correspondente
       items: [
         {
-          title: "General",
+          title: "Geral",
           url: "#",
         },
         {
-          title: "Team",
+          title: "Equipe",
           url: "#",
         },
         {
-          title: "Billing",
+          title: "Faturamento",
           url: "#",
         },
         {
-          title: "Limits",
+          title: "Limites",
           url: "#",
         },
       ],
@@ -139,24 +146,31 @@ const data = {
   ],
   projects: [
     {
-      name: "Design Engineering",
+      name: "Reuniões",
       url: "#",
       icon: Frame,
     },
     {
-      name: "Sales & Marketing",
+      name: "Assembleia",
       url: "#",
       icon: PieChart,
     },
     {
-      name: "Travel",
+      name: "Reunião Extraordinária",
+      url: "#",
+      icon: Map,
+    },
+    {
+      name: "Acto",
       url: "#",
       icon: Map,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { theme, setTheme } = useTheme(); // Hook para alternar temas
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -167,9 +181,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
+        {/* Botão de alternância de tema */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="w-full justify-start"
+        >
+          {theme === "dark" ? <Sun className="mr-2 h-4 w-4" /> : <Moon className="mr-2 h-4 w-4" />}
+          {theme === "dark" ? "Tema Claro" : "Tema Escuro"}
+        </Button>
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
