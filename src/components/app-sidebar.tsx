@@ -115,7 +115,7 @@ const data = {
           url: "#",
         },
         {
-          title: "D. Resultados",
+          title: "Demost. de Resultados",
           url: "#",
         },
       ],
@@ -184,11 +184,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* Botão de alternância de tema */}
         <Button
           variant="ghost"
-          size="sm"
+          size="lg" // Aumentando o tamanho do botão
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="w-full justify-start"
+          className="w-full justify-start hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
         >
-          {theme === "dark" ? <Sun className="mr-2 h-4 w-4" /> : <Moon className="mr-2 h-4 w-4" />}
+          {theme === "dark" ? <Sun className="mr-2 h-6 w-6" /> : <Moon className="mr-2 h-6 w-6" />}
           {theme === "dark" ? "Tema Claro" : "Tema Escuro"}
         </Button>
         <NavUser user={data.user} />
